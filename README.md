@@ -1,118 +1,31 @@
-AndroidTreeView
-====================
+# [개인] 마인드맵 안드로이드 앱 제작 프로젝트
+**This project has been deprecated. This may not be executable any more.**
 
-### Recent changes
+**진행 기간**: 2015. 09. ~ 2015. 10.
 
+**사용 언어/기술**: Java (안드로이드 타겟), AndroidTreeView
 
-2D scrolling mode added, keep in mind this comes with few limitations: you won't be able not place views on right side like alignParentRight. Everything should be align left. Is not enabled by default
+## 소개
 
+마인드맵 형식으로 키워드 메모를 위해, 안드로이드 앱 제작을 기획 및 개발함.
 
-### Description
-
-Tree view implementation for android
-
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AndroidTreeView-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1534)
-
-### Demo
-
-[![AndroidTreeView Demo on Google Play Store](http://developer.android.com/images/brand/en_generic_rgb_wo_60.png)](https://play.google.com/store/apps/details?id=com.unnamed.b.atv.demo)
+메모 아이템들은 트리 형태로 구성되며, 가로 화면이면 특정 레벨의 마인드맵을 보여주고, 세로 화면이면 전체 아이템을 트리뷰 형태로 보여주게 함.
 
 
-### Featrues
-+ 1. N - level expandable/collapsable tree
-+ 2. Custom values, views, styles for nodes
-+ 3. Save state after rotation
-+ 4. Selection mode for nodes
-+ 5. Dynamic add/remove node
+## 스크린샷
 
-### Known Limitations
-+ For Android 4.0 (+/- nearest version) if you have too deep view hierarchy and with tree its easily possible, your app may crash
+(가로 화면) 마인드맵 예시. 중앙의 'luxary' 중심의 키워드/사진을 주변에 배치함. 주변의 노드를 클릭하면, 그 노드의 레벨로 넘어감.
 
-<br>
-<br>
+![example2](./docs/example2.png)
 
-<img width='300' hspace='20' align='left' src='https://lh4.ggpht.com/xzkb3N58LH2Tsb_gGs0u3_x81VOLwlhcp-f4pz_sR_iR3vAKXfJoAcwBjN74LvzpVLE=h900-rw' />
+마인드 맵의 아이템을 편집하는 다이얼로그
 
-<img width='300' hspace='20' src='https://lh5.ggpht.com/Ut6By_iUnkNfzIbaPBsc8hBeQeFj_2UXJh_1tfwDdlTAqGkhiR72A_AwQ0L0GH3OFag=h900-rw' />
+![example4](./docs/example4.png)
 
-<img width='300' hspace='20' src='https://www.dropbox.com/s/nc6q4jubaau0x5m/Screenshot_2015-02-15-23-16-56.png?dl=1' />
-<img width='300' hspace='20' src='https://drive.google.com/uc?id=0B3hs6EXn55WUNzJmelk3cmRzcEE' />
+(세로 화면) 전체 아이템을 트리로 표현
 
+![example1](./docs/example1.png)
 
-### Integration
+아이템이 트리로 표현될 때의 텍스트 및 아이콘 설정
 
-**1)** Add library as a dependency to your project 
-
-```compile 'com.github.bmelnychuk:atv:1.2.+'```
-
-**2)** Create your tree starting from root element. ```TreeNode.root()``` element will not be displayed so it doesn't require anything to be set.
-```java
-TreeNode root = TreeNode.root();
-```
-
-Create and add your nodes (use your custom object as constructor param)
-```java
- TreeNode parent = new TreeNode("MyParentNode");
- TreeNode child0 = new TreeNode("ChildNode0");
- TreeNode child1 = new TreeNode("ChildNode1");
- parent.addChildren(child0, child1);
- root.addChild(parent);
-```
-
-**3)** Add tree view to layout
-```java 
- AndroidTreeView tView = new AndroidTreeView(getActivity(), root);
- containerView.addView(tView.getView());
-``` 
-The simplest but not styled tree is ready. Now you can see ```parent``` node as root of your tree
-
-**4)** Custom view for nodes
-
-Extend ```TreeNode.BaseNodeViewHolder``` and overwrite ```createNodeView``` method to prepare custom view for node:
-```java
-public class MyHolder extends TreeNode.BaseNodeViewHolder<IconTreeItem> {
-    ...
-    @Override
-    public View createNodeView(TreeNode node, IconTreeItem value) {
-        final LayoutInflater inflater = LayoutInflater.from(context);
-        final View view = inflater.inflate(R.layout.layout_profile_node, null, false);
-        TextView tvValue = (TextView) view.findViewById(R.id.node_value);
-        tvValue.setText(value.text);
-        
-        return view;
-    }
-    ...
-    public static class IconTreeItem {
-        public int icon;
-        public String text;
-    }
-}
-```
-
-**5)** Connect view holder with node 
-```java 
-  IconTreeItem nodeItem = new IconTreeItem();
-  TreeNode child1 = new TreeNode(nodeItem).setViewHolder(new MyHolder(mContext));
-```
-
-**6)** Consider using 
-```java 
-TreeNode.setClickListener(TreeNodeClickListener listener);
-AndroidTreeView.setDefaultViewHolder
-AndroidTreeView.setDefaultNodeClickListener
-...
-```
-
-For more details use sample application as example
-
-### Upcoming changes
-
-**1)** Horizontal scroll issue
-
-**2)** Add wiki?
-
-Let me know if i missed something, appreciate your support, thanks!
-
-### Projects using this library
-
-[Blue Dot : World Chat](https://play.google.com/store/apps/details?id=com.commandapps.bluedot)
+![example3](./docs/example3.png)
